@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+/* The accent is a registered colour so the browser can blend it when the mood changes.
+   Everything below is derived from it, so the whole page re-tints in one transition. */
+@property --accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ec4a2f;
+}
+
+:root {
+  --accent: #ec4a2f;
+  --ink: #090807;
+  --bone: #ece7dd;
+
+  --background: color-mix(in oklab, var(--ink), var(--accent) 7%);
+  --foreground: var(--bone);
+  --card: color-mix(in oklab, var(--background), var(--bone) 5%);
+  --muted: color-mix(in oklab, var(--background), var(--bone) 11%);
+  --muted-foreground: #a8a196;
+  --border: color-mix(in oklab, var(--background), var(--bone) 20%);
+
+  /* Names the skyline component reads directly through var(). */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+
+  transition: --accent 900ms cubic-bezier(0.65, 0, 0.35, 1);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-brand: var(--accent);
+  --font-blackletter: "UnifrakturCook", "IM Fell English", Georgia, serif;
+  --font-engraved: "IM Fell English", Georgia, "Times New Roman", serif;
+  --font-sans: "Hanken Grotesk Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Hanken Grotesk Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection { background: var(--accent); color: var(--ink); }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+section[id] { scroll-margin-top: 4.5rem; }
+
+/* Film grain over everything. Painted once, never animated. */
+.grain {
+  position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: 0.09; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Engraver's cross-hatch, used for fills and panels. */
+.hatch {
+  background-image: repeating-linear-gradient(135deg, currentColor 0 1px, transparent 1px 5px);
+}
+.hatch-fine {
+  background-image:
+    repeating-linear-gradient(135deg, color-mix(in oklab, var(--bone) 9%, transparent) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(45deg, color-mix(in oklab, var(--bone) 5%, transparent) 0 1px, transparent 1px 9px);
+}
+
+/* A hairline that draws itself when its section arrives. */
+.rule { height: 1px; background: var(--border); transform-origin: left; transform: scaleX(0); transition: transform 1100ms cubic-bezier(0.65, 0, 0.35, 1); }
+.rule[data-in="true"] { transform: scaleX(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .rule { transform: scaleX(1); transition: none; }
+}
+
+/* Hero name: the one orchestrated entrance. */
+@media (prefers-reduced-motion: no-preference) {
+  .name-letter {
+    display: inline-block; opacity: 0; transform: translateY(0.35em) rotate(2deg); filter: blur(6px);
+    animation: letter-in 900ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: calc(var(--i) * 55ms + 250ms);
+  }
+  .hero-fade { opacity: 0; animation: fade-in 900ms ease forwards; animation-delay: 1.4s; }
+  .ember-flicker { animation: flicker 3.2s ease-in-out infinite; }
+  .bob { animation: bob 2.4s ease-in-out infinite; }
+}
+@keyframes letter-in { to { opacity: 1; transform: none; filter: none; } }
+@keyframes fade-in { to { opacity: 1; } }
+@keyframes flicker { 0%, 100% { opacity: 1; } 45% { opacity: 0.82; } 50% { opacity: 1; } 72% { opacity: 0.9; } }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+/* Project plates: tiny looping illustrations. Only play when motion is welcome. */
+@media (prefers-reduced-motion: no-preference) {
+  .plate-bar { transform-box: fill-box; transform-origin: bottom; animation: bar-rise 3.6s cubic-bezier(0.3, 0.8, 0.3, 1) infinite; animation-delay: calc(var(--i) * 260ms); }
+  .plate-line { transform-box: fill-box; transform-origin: left; animation: line-grow 3.2s ease-in-out infinite; animation-delay: calc(var(--i) * 220ms + 600ms); }
+  .plate-caret { animation: caret 1s steps(1) infinite; }
+  .plate-wave { transform-box: fill-box; transform-origin: left center; animation: wave 2.4s ease-out infinite; animation-delay: calc(var(--i) * 260ms); }
+  .plate-bubble-a { animation: bubble 4s ease-in-out infinite; }
+  .plate-bubble-b { animation: bubble 4s ease-in-out 1.6s infinite; }
+}
+@keyframes bar-rise { 0% { transform: scaleY(0.04); } 35%, 85% { transform: scaleY(1); } 100% { transform: scaleY(0.04); } }
+@keyframes line-grow { 0% { transform: scaleX(0); } 40%, 85% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+@keyframes caret { 50% { opacity: 0; } }
+@keyframes wave { 0% { opacity: 0.15; transform: scale(0.85); } 40% { opacity: 1; } 100% { opacity: 0.15; transform: scale(1.06); } }
+@keyframes bubble { 0%, 12% { opacity: 0; transform: translateY(6px); } 25%, 70% { opacity: 1; transform: none; } 90%, 100% { opacity: 0; } }
