@@ -67,7 +67,7 @@ export function Hero() {
             </p>
             <div className="flex flex-wrap gap-3">
               <a
-                href="#work"
+                href="#showcase"
                 className="inline-flex h-11 items-center rounded-full bg-brand px-5 text-[15px] font-semibold text-background transition-transform hover:-translate-y-0.5"
               >
                 See what I've built

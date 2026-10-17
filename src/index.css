@@ -107,18 +107,3 @@ section[id] { scroll-margin-top: 4.5rem; }
 @keyframes fade-in { to { opacity: 1; } }
 @keyframes flicker { 0%, 100% { opacity: 1; } 45% { opacity: 0.82; } 50% { opacity: 1; } 72% { opacity: 0.9; } }
 @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
-
-/* Project plates: tiny looping illustrations. Only play when motion is welcome. */
-@media (prefers-reduced-motion: no-preference) {
-  .plate-bar { transform-box: fill-box; transform-origin: bottom; animation: bar-rise 3.6s cubic-bezier(0.3, 0.8, 0.3, 1) infinite; animation-delay: calc(var(--i) * 260ms); }
-  .plate-line { transform-box: fill-box; transform-origin: left; animation: line-grow 3.2s ease-in-out infinite; animation-delay: calc(var(--i) * 220ms + 600ms); }
-  .plate-caret { animation: caret 1s steps(1) infinite; }
-  .plate-wave { transform-box: fill-box; transform-origin: left center; animation: wave 2.4s ease-out infinite; animation-delay: calc(var(--i) * 260ms); }
-  .plate-bubble-a { animation: bubble 4s ease-in-out infinite; }
-  .plate-bubble-b { animation: bubble 4s ease-in-out 1.6s infinite; }
-}
-@keyframes bar-rise { 0% { transform: scaleY(0.04); } 35%, 85% { transform: scaleY(1); } 100% { transform: scaleY(0.04); } }
-@keyframes line-grow { 0% { transform: scaleX(0); } 40%, 85% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
-@keyframes caret { 50% { opacity: 0; } }
-@keyframes wave { 0% { opacity: 0.15; transform: scale(0.85); } 40% { opacity: 1; } 100% { opacity: 0.15; transform: scale(1.06); } }
-@keyframes bubble { 0%, 12% { opacity: 0; transform: translateY(6px); } 25%, 70% { opacity: 1; transform: none; } 90%, 100% { opacity: 0; } }

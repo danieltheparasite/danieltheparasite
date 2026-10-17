@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site-header"
 import { MoodDock } from "@/components/mood-dock"
 import { Hero } from "@/components/hero"
 import { About } from "@/components/about"
-import { Work } from "@/components/work"
+import { Rift } from "@/components/rift"
 import { Activity } from "@/components/activity"
 import { Solving } from "@/components/solving"
 import { Moments } from "@/components/moments"
@@ -20,7 +20,7 @@ export default function App() {
       <main>
         <Hero />
         <About />
-        <Work />
+        <Rift />
         <Activity />
         <Solving />
         <Moments />
