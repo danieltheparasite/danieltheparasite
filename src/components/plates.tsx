@@ -75,6 +75,25 @@ export function VoicePlate() {
   )
 }
 
+export function DeskPlate() {
+  const repos = [58, 74, 90]
+  return (
+    <Frame label="A laptop on a desk showing a list of repositories, with a red button beside it">
+      <line x1="16" y1="122" x2="224" y2="122" stroke="var(--foreground)" strokeWidth="1.5" />
+      <path d="M 70 122 L 82 40 H 170 L 182 122" fill="none" stroke="var(--foreground)" strokeWidth="2.5" strokeLinejoin="round" />
+      <path d="M 54 122 H 198" stroke="var(--foreground)" strokeWidth="4" strokeLinecap="round" />
+      {repos.map((y, n) => (
+        <g key={n}>
+          <rect x="94" y={y - 5} width="7" height="7" fill="var(--accent)" opacity="0.85" />
+          <rect className="plate-line" style={i(n)} x="108" y={y - 4} width={52 - n * 8} height="5" fill="var(--foreground)" opacity="0.7" />
+        </g>
+      ))}
+      <rect x="28" y="104" width="22" height="18" fill="none" stroke="var(--foreground)" strokeWidth="1.5" />
+      <circle className="plate-caret" cx="212" cy="116" r="6" fill="var(--accent)" />
+    </Frame>
+  )
+}
+
 export function ChatPlate() {
   return (
     <Frame label="Two chat bubbles appearing one after the other">

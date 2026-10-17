@@ -1,10 +1,11 @@
 import * as React from "react"
 import { ArrowUpRight, Plus } from "lucide-react"
 import { Section, SectionHead } from "@/components/section"
-import { ChatPlate, SlingshotPlate, SteelmanPlate, TerminalPlate, VoicePlate } from "@/components/plates"
+import { ChatPlate, DeskPlate, SlingshotPlate, SteelmanPlate, TerminalPlate, VoicePlate } from "@/components/plates"
 import { cn } from "@/lib/utils"
 
 const GH = "https://github.com/danieltheparasite/"
+const SHOWCASE = "https://daniels-github-showcase.vercel.app/"
 
 const PROJECTS = [
   {
@@ -12,7 +13,8 @@ const PROJECTS = [
     title: "Argument Steelman Engine",
     tags: "Hack day project, LLM, built with a team",
     body: "Takes any claim and runs a loop of counter-argument, self-critique and strengthening. Every round is scored on logical rigor, relevance and resistance to rebuttal, and the reasoning stays visible.",
-    repo: "argument-steelman-engine",
+    href: GH + "argument-steelman-engine",
+    cta: "View the code on GitHub",
     Plate: SteelmanPlate,
   },
   {
@@ -20,7 +22,8 @@ const PROJECTS = [
     title: "IEEE RAS Assistant",
     tags: "RAG, Node.js",
     body: "A retrieval-based assistant that answers questions about the IEEE Robotics and Automation Society from its public information, in a terminal-style interface. Built for the VIT Chennai chapter's AI/ML task.",
-    repo: "ieee-ras-assistant",
+    href: GH + "ieee-ras-assistant",
+    cta: "View the code on GitHub",
     Plate: TerminalPlate,
   },
   {
@@ -28,7 +31,8 @@ const PROJECTS = [
     title: "Photoelectric Effect Simulation",
     tags: "Physics, simulation, front end",
     body: "A web front end for a photoelectric effect simulation. It opens with a slingshot-style intro that fires an electron at a metal surface.",
-    repo: "photoelectric-effect",
+    href: GH + "photoelectric-effect",
+    cta: "View the code on GitHub",
     Plate: SlingshotPlate,
   },
   {
@@ -36,7 +40,8 @@ const PROJECTS = [
     title: "Voice Web Launcher",
     tags: "Python, speech recognition",
     body: "Opens websites from spoken commands. Say the wake word, then \"open\" and a site name; a spoken command quits it.",
-    repo: "voice-web-launcher",
+    href: GH + "voice-web-launcher",
+    cta: "View the code on GitHub",
     Plate: VoicePlate,
   },
   {
@@ -44,8 +49,18 @@ const PROJECTS = [
     title: "Anonymous Chatrooms",
     tags: "Web, realtime",
     body: "Anonymous chatrooms that start instantly.",
-    repo: "protecting-private-daniel",
+    href: GH + "protecting-private-daniel",
+    cta: "View the code on GitHub",
     Plate: ChatPlate,
+  },
+  {
+    id: "showcase",
+    title: "GitHub Showcase",
+    tags: "three.js, 3D, portfolio",
+    body: "A website that shows off my GitHub projects as a low-poly 3D desk. Drag to look around, then click the laptop, the book or the red button to open things.",
+    href: SHOWCASE,
+    cta: "Open the live site",
+    Plate: DeskPlate,
   },
 ]
 
@@ -53,8 +68,8 @@ export function Work() {
   const [open, setOpen] = React.useState<string | null>(PROJECTS[0].id)
   return (
     <Section id="work" mood="gold">
-      <SectionHead title="Five things I've built that you can open.">
-        Open a project to see what it does. Each one links to its code on GitHub.
+      <SectionHead title="Six things I've built that you can open.">
+        Open a project to see what it does. Each one links to its code on GitHub or to the live site.
       </SectionHead>
 
       <ul className="m-0 list-none border-t border-border p-0">
@@ -94,12 +109,12 @@ export function Work() {
                     <div>
                       <p className="m-0 max-w-[52ch] text-[1.05rem] text-foreground/90 text-pretty">{p.body}</p>
                       <a
-                        href={GH + p.repo}
+                        href={p.href}
                         target="_blank"
                         rel="noreferrer"
                         className="mt-6 inline-flex items-center gap-1.5 border-b border-brand pb-0.5 text-[15px] font-medium text-foreground transition-colors hover:text-brand"
                       >
-                        View the code on GitHub
+                        {p.cta}
                         <ArrowUpRight aria-hidden className="size-4" />
                       </a>
                     </div>
